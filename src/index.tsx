@@ -1,7 +1,8 @@
 import React from "react";
 import { render } from "ink";
-import App from "./app";
 import yargs from "yargs/yargs";
+import { config } from "./config";
+import App from "./app";
 
 const argv = yargs(process.argv.slice(2)).options({
   c: {
@@ -12,4 +13,4 @@ const argv = yargs(process.argv.slice(2)).options({
   },
 }).argv;
 
-render(<App channel={argv.c} />);
+render(<App config={config} channel={argv.c} />);
