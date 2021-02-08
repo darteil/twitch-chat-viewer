@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "ink";
 import yargs from "yargs/yargs";
 import { config } from "./config";
-import App from "./app";
+import App from "./App";
 
 const argv = yargs(process.argv.slice(2)).options({
   c: {

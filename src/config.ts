@@ -49,17 +49,14 @@ if (fs.existsSync(configFilePath)) {
   config = JSON.parse(
     fs.readFileSync(`${homeDir}/.config/.twitch-chat-viewer.json`, {
       encoding: "utf8",
-    })
+    }),
   );
   if (!validate(config)) {
     console.log(chalk.red("Invalid config..."));
     process.exit();
   }
 } else {
-  fs.writeFileSync(
-    `${homeDir}/.config/.twitch-chat-viewer.json`,
-    JSON.stringify(config, null, 2)
-  );
+  fs.writeFileSync(`${homeDir}/.config/.twitch-chat-viewer.json`, JSON.stringify(config, null, 2));
 }
 
 export { config, Config };
