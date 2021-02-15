@@ -3,7 +3,7 @@ import { Static, Box, Text } from "ink";
 import chalk from "chalk";
 import dayjs from "dayjs";
 import { Client } from "tmi.js";
-import { Config } from "./config";
+import { Config } from "../config";
 import CountOfMessages from "./CountOfMessages";
 
 interface Message {
@@ -45,16 +45,16 @@ const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
     <>
       <Static items={messages}>
         {(message) => (
-          <Box key={message.id} flexDirection="row" flexShrink={0}>
-            <Box flexShrink={0} minWidth="8">
+          <Box key={message.id} flexDirection="row">
+            <Box width="9">
               <Text color={config.colors.time}>{`${message.time} `}</Text>
             </Box>
-            <Box flexShrink={0} justifyContent="flex-end" width="20">
+            <Box justifyContent="flex-end" width="20">
               <Text color={config.colors.nickname} wrap="truncate">
                 {`${message.mod ? chalk.blue("◉") : ""} ${message.name} `}
               </Text>
             </Box>
-            <Box flexShrink={0} width="70">
+            <Box width="70">
               <Text color={config.colors.message}>{message.mess}</Text>
             </Box>
           </Box>

@@ -1,7 +1,8 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { Client } from "tmi.js";
+import { useInput } from "ink";
 import RoomState from "./RoomState";
-import { Config } from "./config";
+import { Config } from "../config";
 import MessagesList from "./MessagesList";
 
 interface Props {
@@ -17,10 +18,21 @@ const App: FunctionComponent<Props> = ({ channel, config }) => {
     }),
   );
 
+  useInput((input) => {
+    if (input === "q") {
+      process.exit();
+    }
+  });
+
   useEffect(() => {
     client.connect();
 
+    process.stdout.on("resize", () => {
+      console.log(process.stdout.rows, process.stdout.columns);
+    });
+
     return () => {
+      client.removeAllListeners();
       client.disconnect();
     };
   }, []);
