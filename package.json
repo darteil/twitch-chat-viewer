@@ -5,7 +5,7 @@
   "main": "index.tsx",
   "bin": "./dist/index.js",
   "scripts": {
-    "dev": "./node_modules/ts-node/dist/bin.js src/index.tsx -c xqcow",
+    "dev": "./node_modules/ts-node/dist/bin.js src/index.tsx -c",
     "build": "tsc",
     "pack": "./node_modules/pkg/lib-es5/bin.js --out-path ./release .",
     "lint": "./node_modules/.bin/prettier --config ./.prettierrc.js ./src/**/*.tsx ./src/**/*.ts --write"

@@ -27,10 +27,6 @@ const App: FunctionComponent<Props> = ({ channel, config }) => {
   useEffect(() => {
     client.connect();
 
-    process.stdout.on("resize", () => {
-      console.log(process.stdout.rows, process.stdout.columns);
-    });
-
     return () => {
       client.removeAllListeners();
       client.disconnect();
