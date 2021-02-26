@@ -21,8 +21,13 @@ interface Props {
 
 const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
   const [messages, setMessages] = useState<Array<Message>>([]);
+  const [showTime, setShowTime] = useState(process.stdout.columns >= 107 ? true : false);
 
   useEffect(() => {
+    process.stdout.on("resize", () => {
+      process.stdout.columns >= 107 ? setShowTime(true) : setShowTime(false);
+    });
+
     client.on("message", (channel, userstate, message) => {
       const time = dayjs().format("hh:mm:ss");
 
@@ -46,9 +51,11 @@ const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
       <Static items={messages}>
         {(message) => (
           <Box key={message.id} flexDirection="row">
-            <Box width="9">
-              <Text color={config.colors.time}>{`${message.time} `}</Text>
-            </Box>
+            {showTime && (
+              <Box width="9">
+                <Text color={config.colors.time}>{`${message.time} `}</Text>
+              </Box>
+            )}
             <Box justifyContent="flex-end" width="20">
               <Text color={config.colors.nickname} wrap="truncate">
                 {`${message.mod ? chalk.blue("◉") : ""} ${message.name} `}
