@@ -13,6 +13,8 @@ type Colors = {
 
 type Config = {
   colors: Colors;
+  moderatorIcon: string;
+  moderatorIconColor: string;
 };
 
 const schema: JSONSchemaType<Config> = {
@@ -27,8 +29,14 @@ const schema: JSONSchemaType<Config> = {
       },
       required: ["time", "nickname", "message"],
     },
+    moderatorIcon: {
+      type: "string",
+    },
+    moderatorIconColor: {
+      type: "string",
+    },
   },
-  required: ["colors"],
+  required: ["colors", "moderatorIcon"],
   additionalProperties: false,
 };
 
@@ -41,8 +49,10 @@ let config: Config = {
   colors: {
     time: "red",
     nickname: "green",
-    message: "#fbf1c7",
+    message: "white",
   },
+  moderatorIcon: "◉",
+  moderatorIconColor: "#ffffff",
 };
 
 if (fs.existsSync(configFilePath)) {

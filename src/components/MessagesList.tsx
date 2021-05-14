@@ -23,6 +23,8 @@ const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
   const [messages, setMessages] = useState<Array<Message>>([]);
   const [showTime, setShowTime] = useState(process.stdout.columns >= 107 ? true : false);
 
+  const moderatorIconColor = config.moderatorIconColor || "#ffffff";
+
   useEffect(() => {
     process.stdout.on("resize", () => {
       process.stdout.columns >= 107 ? setShowTime(true) : setShowTime(false);
@@ -58,7 +60,7 @@ const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
             )}
             <Box justifyContent="flex-end" width="20">
               <Text color={config.colors.nickname} wrap="truncate">
-                {`${message.mod ? chalk.blue("◉") : ""} ${message.name} `}
+                {`${message.mod ? chalk.hex(moderatorIconColor)(`${config.moderatorIcon}`) : ""} ${message.name} `}
               </Text>
             </Box>
             <Box width="70">
