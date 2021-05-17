@@ -20,6 +20,22 @@ node dist/index.js -c channel_name
 npm run pack
 ```
 
+### Configuration file
+The user configuration is named as `.twitch-chat-viewer.json` and placed inside the folder `$HOME/.config/`
+
+Default config:
+``` jsonc
+{
+  "colors": {
+    "time": "red",
+    "nickname": "green",
+    "message": "white"
+  },
+  "moderatorIcon": "◉",
+  "moderatorIconColor": "#ffffff"
+}
+```
+
 ## License
 
 MIT License, Copyright (c) 2021 Romanov Yuri
