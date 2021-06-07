@@ -21,13 +21,13 @@ interface Props {
 
 const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
   const [messages, setMessages] = useState<Array<Message>>([]);
-  const [showTime, setShowTime] = useState(process.stdout.columns >= 107 ? true : false);
+  const [compact, setCompact] = useState(process.stdout.columns < 90 ? true : false);
 
   const moderatorIconColor = config.moderatorIconColor || "#ffffff";
 
   useEffect(() => {
     process.stdout.on("resize", () => {
-      process.stdout.columns >= 107 ? setShowTime(true) : setShowTime(false);
+      process.stdout.columns < 90 ? setCompact(true) : setCompact(false);
     });
 
     client.on("message", (channel, userstate, message) => {
@@ -51,24 +51,47 @@ const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
   return (
     <>
       <Static items={messages}>
-        {(message) => (
-          <Box key={message.id} flexDirection="row">
-            {showTime && (
-              <Box width="9">
-                <Text color={config.colors.time}>{`${message.time} `}</Text>
+        {(message) => {
+          if (compact) {
+            return (
+              <Box key={message.id} flexDirection="column">
+                <Box flexDirection="row">
+                  <Box>
+                    <Text color={config.colors.time}>{`${message.time} `}</Text>
+                  </Box>
+                  <Box justifyContent="flex-end">
+                    <Text color={config.colors.nickname} wrap="truncate">
+                      {`${message.mod ? chalk.hex(moderatorIconColor)(`${config.moderatorIcon}`) : ""} ${
+                        message.name
+                      } `}
+                    </Text>
+                  </Box>
+                </Box>
+                <Box marginBottom={1}>
+                  <Text color={config.colors.message}>{message.mess}</Text>
+                </Box>
               </Box>
-            )}
-            <Box justifyContent="flex-end" width="20">
-              <Text color={config.colors.nickname} wrap="truncate">
-                {`${message.mod ? chalk.hex(moderatorIconColor)(`${config.moderatorIcon}`) : ""} ${message.name} `}
-              </Text>
-            </Box>
-            <Box width="70">
-              <Text color={config.colors.message}>{message.mess}</Text>
-            </Box>
-          </Box>
-        )}
+            );
+          } else {
+            return (
+              <Box key={message.id} flexDirection="row">
+                <Box width="9">
+                  <Text color={config.colors.time}>{`${message.time} `}</Text>
+                </Box>
+                <Box justifyContent="flex-end" width="20">
+                  <Text color={config.colors.nickname} wrap="truncate">
+                    {`${message.mod ? chalk.hex(moderatorIconColor)(`${config.moderatorIcon}`) : ""} ${message.name} `}
+                  </Text>
+                </Box>
+                <Box width="70">
+                  <Text color={config.colors.message}>{message.mess}</Text>
+                </Box>
+              </Box>
+            );
+          }
+        }}
       </Static>
+      <Text>{"=============="}</Text>
       <CountOfMessages count={messages.length} />
     </>
   );
