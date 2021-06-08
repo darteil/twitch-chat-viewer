@@ -26,6 +26,8 @@ const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
   const moderatorIconColor = config.moderatorIconColor || "#ffffff";
 
   useEffect(() => {
+    console.clear();
+    console.log("Welcome to twitch chat...");
     process.stdout.on("resize", () => {
       process.stdout.columns < 90 ? setCompact(true) : setCompact(false);
     });
@@ -54,7 +56,14 @@ const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
         {(message) => {
           if (compact) {
             return (
-              <Box key={message.id} flexDirection="column">
+              <Box
+                width={process.stdout.columns}
+                paddingLeft={1}
+                paddingRight={1}
+                borderStyle="classic"
+                key={message.id}
+                flexDirection="column"
+              >
                 <Box flexDirection="row">
                   <Box>
                     <Text color={config.colors.time}>{`${message.time} `}</Text>
@@ -67,7 +76,7 @@ const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
                     </Text>
                   </Box>
                 </Box>
-                <Box marginBottom={1}>
+                <Box>
                   <Text color={config.colors.message}>{message.mess}</Text>
                 </Box>
               </Box>
@@ -91,7 +100,6 @@ const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
           }
         }}
       </Static>
-      <Text>{"=============="}</Text>
       <CountOfMessages count={messages.length} />
     </>
   );
