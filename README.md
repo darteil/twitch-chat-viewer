@@ -1,8 +1,10 @@
-## Twitch chat viewer
+## CLI Twitch chat viewer
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/darteil/twitch-chat-viewer/blob/master/LICENSE.md)
 
-![](media/demo.gif)
+ Default mode              |  Compact mode
+:-------------------------:|:-------------------------:
+![](media/screen1.png)    |![](media/screen2.png)
 
 ### Usage
 
