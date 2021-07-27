@@ -22,6 +22,7 @@ interface Props {
 const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
   const [messages, setMessages] = useState<Array<Message>>([]);
   const [compact, setCompact] = useState(process.stdout.columns < 90 ? true : false);
+  const [countOfMessages, setCountOfMessages] = useState(0);
 
   const moderatorIconColor = config.moderatorIconColor || "#ffffff";
 
@@ -32,8 +33,24 @@ const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
       process.stdout.columns < 90 ? setCompact(true) : setCompact(false);
     });
 
+    const emptyLines: Message[] = [];
+
+    for (let i = 0; i < process.stdout.rows - 8; i++) {
+      emptyLines.push({
+        id: `${i}-empty`,
+        time: '',
+        name: '',
+        mod: false,
+        mess: ' ',
+      });
+    }
+
+    setMessages(emptyLines);
+
     client.on("message", (channel, userstate, message) => {
       const time = dayjs().format("hh:mm:ss");
+
+      setCountOfMessages(prevState => prevState + 1)
 
       setMessages((prevState): Message[] => {
         return [
@@ -60,7 +77,7 @@ const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
                 width={process.stdout.columns}
                 paddingLeft={1}
                 paddingRight={1}
-                borderStyle="classic"
+                borderStyle={message.time === '' ? undefined : 'round'}
                 key={message.id}
                 flexDirection="column"
               >
@@ -70,9 +87,8 @@ const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
                   </Box>
                   <Box justifyContent="flex-end">
                     <Text color={config.colors.nickname} wrap="truncate">
-                      {`${message.mod ? chalk.hex(moderatorIconColor)(`${config.moderatorIcon}`) : ""} ${
-                        message.name
-                      } `}
+                      {`${message.mod ? chalk.hex(moderatorIconColor)(`${config.moderatorIcon}`) : ""} ${message.name
+                        } `}
                     </Text>
                   </Box>
                 </Box>
@@ -100,7 +116,7 @@ const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
           }
         }}
       </Static>
-      <CountOfMessages count={messages.length} />
+      <CountOfMessages count={countOfMessages} />
     </>
   );
 };
