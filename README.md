@@ -28,6 +28,7 @@ The user configuration is named as `.twitch-chat-viewer.json` and placed inside 
 Default config:
 ``` jsonc
 {
+  "showMods": true,
   "colors": {
     "time": "red",
     "nickname": "green",
