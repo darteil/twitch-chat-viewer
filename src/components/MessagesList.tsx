@@ -34,14 +34,15 @@ const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
     });
 
     const emptyLines: Message[] = [];
+    const emptyLinesCount = config.showMods ? process.stdout.rows - 8 : process.stdout.rows - 3;
 
-    for (let i = 0; i < process.stdout.rows - 8; i++) {
+    for (let i = 0; i < emptyLinesCount; i++) {
       emptyLines.push({
         id: `${i}-empty`,
-        time: '',
-        name: '',
+        time: "",
+        name: "",
         mod: false,
-        mess: ' ',
+        mess: " ",
       });
     }
 
@@ -50,7 +51,7 @@ const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
     client.on("message", (channel, userstate, message) => {
       const time = dayjs().format("hh:mm:ss");
 
-      setCountOfMessages(prevState => prevState + 1)
+      setCountOfMessages((prevState) => prevState + 1);
 
       setMessages((prevState): Message[] => {
         return [
@@ -77,7 +78,7 @@ const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
                 width={process.stdout.columns}
                 paddingLeft={1}
                 paddingRight={1}
-                borderStyle={message.time === '' ? undefined : 'round'}
+                borderStyle={message.time === "" ? undefined : "round"}
                 key={message.id}
                 flexDirection="column"
               >
@@ -87,8 +88,9 @@ const MessagesList: FunctionComponent<Props> = ({ client, config }) => {
                   </Box>
                   <Box justifyContent="flex-end">
                     <Text color={config.colors.nickname} wrap="truncate">
-                      {`${message.mod ? chalk.hex(moderatorIconColor)(`${config.moderatorIcon}`) : ""} ${message.name
-                        } `}
+                      {`${message.mod ? chalk.hex(moderatorIconColor)(`${config.moderatorIcon}`) : ""} ${
+                        message.name
+                      } `}
                     </Text>
                   </Box>
                 </Box>

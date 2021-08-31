@@ -36,7 +36,7 @@ const App: FunctionComponent<Props> = ({ channel, config }) => {
   return (
     <>
       <MessagesList client={client} config={config} />
-      <RoomState client={client} />
+      {config.showMods && <RoomState client={client} />}
     </>
   );
 };

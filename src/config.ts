@@ -12,6 +12,7 @@ type Colors = {
 };
 
 type Config = {
+  showMods: boolean;
   colors: Colors;
   moderatorIcon: string;
   moderatorIconColor: string;
@@ -20,6 +21,9 @@ type Config = {
 const schema: JSONSchemaType<Config> = {
   type: "object",
   properties: {
+    showMods: {
+      type: "boolean"
+    },
     colors: {
       type: "object",
       properties: {
@@ -46,6 +50,7 @@ const homeDir = os.homedir();
 const configFilePath = `${homeDir}/.config/.twitch-chat-viewer.json`;
 
 let config: Config = {
+  showMods: true,
   colors: {
     time: "red",
     nickname: "green",
