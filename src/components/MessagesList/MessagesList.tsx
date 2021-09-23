@@ -4,15 +4,22 @@ import dayjs from "dayjs";
 import { Client } from "tmi.js";
 import { Config } from "../../config";
 import CountOfMessages from "../CountOfMessages";
-import CompactList from "./CompactList";
-import DefaultList from "./DefaultList";
+import CompactMessage from "./CompactMessage";
+import DefaultMessage from "./DefaultMessage";
+import { Color } from "chalk";
 
 export interface Message {
   id: string | undefined;
   time: string;
   name: string | undefined;
+  nameColor: typeof Color | undefined;
   mod: boolean | undefined;
   mess: string;
+}
+
+interface State {
+  userColors: Map<string, typeof Color>;
+  messages: Message[];
 }
 
 interface Props {
@@ -20,57 +27,73 @@ interface Props {
   config: Config;
 }
 
+const colors: typeof Color[] = [
+  "red",
+  "green",
+  "yellow",
+  "blue",
+  "magenta",
+  "cyan",
+  "blackBright",
+  "redBright",
+  "greenBright",
+  "yellowBright",
+  "blueBright",
+  "magentaBright",
+  "cyanBright",
+];
+
 export const MessagesList: React.FC<Props> = ({ client, config }) => {
-  const [messages, setMessages] = useState<Array<Message>>([]);
+  const [state, setState] = useState<State>({
+    userColors: new Map(),
+    messages: [],
+  });
   const [compact, setCompact] = useState(process.stdout.columns < 90 ? true : false);
   const [countOfMessages, setCountOfMessages] = useState(0);
 
   useEffect(() => {
     console.clear();
     console.log("Welcome to twitch chat...");
+
     process.stdout.on("resize", () => {
       process.stdout.columns < 90 ? setCompact(true) : setCompact(false);
     });
-
-    const emptyLines: Message[] = [];
-    const emptyLinesCount = config.showMods ? process.stdout.rows - 8 : process.stdout.rows - 3;
-
-    for (let i = 0; i < emptyLinesCount; i++) {
-      emptyLines.push({
-        id: `${i}-empty`,
-        time: "",
-        name: "",
-        mod: false,
-        mess: " ",
-      });
-    }
-
-    setMessages(emptyLines);
 
     client.on("message", (channel, userstate, message) => {
       const time = dayjs().format("hh:mm:ss");
 
       setCountOfMessages((prevState) => prevState + 1);
 
-      setMessages((prevState): Message[] => {
-        return [
+      setState((prevState) => {
+        const userName = userstate["display-name"] || "noname";
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        const newUsers = prevState.userColors.get(userName)
+          ? new Map(prevState.userColors)
+          : new Map(prevState.userColors.set(userName, randomColor));
+
+        return {
           ...prevState,
-          {
-            id: userstate.id,
-            time,
-            name: userstate["display-name"],
-            mod: userstate.mod,
-            mess: message,
-          },
-        ];
+          users: newUsers,
+          messages: [
+            ...prevState.messages,
+            {
+              id: userstate.id,
+              time,
+              name: userName,
+              nameColor: newUsers.get(userName),
+              mod: userstate.mod,
+              mess: message,
+            },
+          ],
+        };
       });
     });
   }, []);
 
   return (
     <>
-      <Static items={messages}>
-        {(message) => (compact ? <CompactList message={message} /> : <DefaultList message={message} />)}
+      <Static items={state.messages}>
+        {(message) => (compact ? <CompactMessage key={message.id} message={message} /> : <DefaultMessage key={message.id} message={message} />)}
       </Static>
       <CountOfMessages count={countOfMessages} />
     </>

@@ -29,11 +29,6 @@ Default config:
 ``` jsonc
 {
   "showMods": true,
-  "colors": {
-    "time": "red",
-    "nickname": "green",
-    "message": "white"
-  },
   "moderatorIcon": "◉",
   "moderatorIconColor": "#ffffff"
 }

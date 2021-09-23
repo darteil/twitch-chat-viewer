@@ -8,22 +8,22 @@ interface Props {
   message: Message;
 }
 
-const DefaultList: React.FC<Props> = ({ message }) => (
-  <Box key={message.id} flexDirection="row">
+const DefaultMessage: React.FC<Props> = ({ message }) => (
+  <Box flexDirection="row">
     <Box width="9">
-      <Text color={config.colors.time}>{`${message.time} `}</Text>
+      <Text>{`${chalk.black.bgYellow(message.time)} `}</Text>
     </Box>
     <Box justifyContent="flex-end" width="20">
-      <Text color={config.colors.nickname} wrap="truncate">
+      <Text wrap="truncate">
         {`${message.mod ? chalk.hex(config.moderatorIconColor || "#ffffff")(`${config.moderatorIcon}`) : ""} ${
-          message.name
+          message.nameColor ? chalk[message.nameColor](message.name) : message.name
         } `}
       </Text>
     </Box>
     <Box width="70">
-      <Text color={config.colors.message}>{message.mess}</Text>
+      <Text>{message.mess}</Text>
     </Box>
   </Box>
 );
 
-export default DefaultList;
+export default DefaultMessage;

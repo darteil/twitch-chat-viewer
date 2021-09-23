@@ -5,15 +5,8 @@ import Ajv, { JSONSchemaType } from "ajv";
 
 const ajv = new Ajv();
 
-type Colors = {
-  time: string;
-  nickname: string;
-  message: string;
-};
-
 type Config = {
   showMods: boolean;
-  colors: Colors;
   moderatorIcon: string;
   moderatorIconColor: string;
 };
@@ -24,15 +17,6 @@ const schema: JSONSchemaType<Config> = {
     showMods: {
       type: "boolean"
     },
-    colors: {
-      type: "object",
-      properties: {
-        time: { type: "string" },
-        nickname: { type: "string" },
-        message: { type: "string" },
-      },
-      required: ["time", "nickname", "message"],
-    },
     moderatorIcon: {
       type: "string",
     },
@@ -40,7 +24,7 @@ const schema: JSONSchemaType<Config> = {
       type: "string",
     },
   },
-  required: ["colors", "moderatorIcon"],
+  required: ["moderatorIcon"],
   additionalProperties: false,
 };
 
@@ -51,11 +35,6 @@ const configFilePath = `${homeDir}/.config/.twitch-chat-viewer.json`;
 
 let config: Config = {
   showMods: true,
-  colors: {
-    time: "red",
-    nickname: "green",
-    message: "white",
-  },
   moderatorIcon: "◉",
   moderatorIconColor: "#ffffff",
 };
