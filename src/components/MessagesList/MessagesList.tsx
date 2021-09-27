@@ -60,7 +60,7 @@ export const MessagesList: React.FC<Props> = ({ client, config }) => {
     });
 
     client.on("message", (channel, userstate, message) => {
-      const time = dayjs().format("hh:mm:ss");
+      const time = dayjs().format("HH:mm:ss");
 
       setCountOfMessages((prevState) => prevState + 1);
 
