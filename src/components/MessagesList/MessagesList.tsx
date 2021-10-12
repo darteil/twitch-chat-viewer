@@ -53,7 +53,6 @@ export const MessagesList: React.FC<Props> = ({ client, config }) => {
 
   useEffect(() => {
     console.clear();
-    console.log("Welcome to twitch chat...");
 
     process.stdout.on("resize", () => {
       process.stdout.columns < 90 ? setCompact(true) : setCompact(false);

@@ -1,43 +1,56 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
+import React, { FunctionComponent, useState, useEffect, createContext } from "react";
 import { Client } from "tmi.js";
 import { useInput } from "ink";
-import RoomState from "./RoomState";
-import { Config } from "../config";
-import MessagesList from "./MessagesList";
+import StartScreen from "./StartScreen";
+import Chat from "./Chat";
 
-interface Props {
-  config: Config;
-  channel: string;
+interface AppContextInterface {
+  userInputChannelName: boolean;
+  setShowStartPage: React.Dispatch<boolean>;
+  setChannel: React.Dispatch<string>;
+  setUserInputChannelName: React.Dispatch<boolean>;
+  client: Client;
 }
 
-const App: FunctionComponent<Props> = ({ channel, config }) => {
+const AppContext = createContext<AppContextInterface>({} as AppContextInterface);
+
+const App: FunctionComponent = () => {
   const [client] = useState(
     new Client({
+      options: {
+        debug: false,
+      },
       connection: { reconnect: true },
-      channels: [channel],
+      channels: [],
     }),
   );
+
+  const [showStartPage, setShowStartPage] = useState(true);
+  const [channel, setChannel] = useState("");
+  const [userInputChannelName, setUserInputChannelName] = useState(false);
 
   useInput((input) => {
     if (input === "q") {
       process.exit();
     }
-  });
+  }, { isActive: userInputChannelName });
 
   useEffect(() => {
-    client.connect();
-
-    return () => {
-      client.removeAllListeners();
-      client.disconnect();
-    };
-  }, []);
+    if (client.readyState() === "CLOSED") {
+      client.connect().then(() => { console.log("Connecting to the server successfully")});
+    }
+    client.join(channel).catch(() => {
+      if (client.getChannels().length > 0) {
+        console.log(`Couldn't connect to channel ${channel}`);
+      }
+    });
+  }, [channel]);
 
   return (
-    <>
-      <MessagesList client={client} config={config} />
-      {config.showMods && <RoomState client={client} />}
-    </>
+    <AppContext.Provider value={{ setShowStartPage, setChannel, client, userInputChannelName, setUserInputChannelName }}>
+      {showStartPage ? <StartScreen /> : <Chat />}
+    </AppContext.Provider>
   );
 };
-export default App;
+
+export { App, AppContext };
