@@ -31,7 +31,7 @@ npm run pack
 ```
 
 ### Configuration file
-The user configuration is named as `.twitch-chat-viewer.json` and placed inside the folder `$HOME/.config/`
+The user configuration is named as `.settings.json` and placed inside the folder `$HOME/.config/twitch-chat-viewer`
 
 Default config:
 ``` jsonc
