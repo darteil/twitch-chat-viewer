@@ -15,7 +15,6 @@
   "devDependencies": {
     "@types/node": "^14.14.22",
     "@types/react": "^17.0.0",
-    "@types/yargs": "^16.0.0",
     "pkg": "^4.4.9",
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1",
@@ -30,7 +29,6 @@
     "ink-select-input": "^4.2.0",
     "ink-text-input": "^4.0.1",
     "react": "^17.0.2",
-    "tmi.js": "^1.7.1",
-    "yargs": "^16.2.0"
+    "tmi.js": "^1.7.1"
   }
 }

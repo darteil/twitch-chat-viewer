@@ -2,9 +2,17 @@
 
 [![GitHub license](https://img.shields.io/github/license/darteil/twitch-chat-viewer?style=for-the-badge)](https://github.com/darteil/twitch-chat-viewer/blob/master/LICENSE.md)
 
- Default mode              |  Compact mode
-:-------------------------:|:-------------------------:
-![](media/screen1.png)    |![](media/screen2.png)
+### Screenshots
+
+Start screen:
+
+![](media/start_screen.png)
+
+Chat:
+
+| Default mode              |  Compact mode             |
+|:-------------------------:|:-------------------------:|
+|![](media/screen1.png)     |![](media/screen2.png)     |
 
 ### Usage
 
@@ -16,7 +24,7 @@ npm install
 npm run build
 
 # Start
-node dist/index.js -c channel_name
+node dist/index.js
 
 # Create release ("release" folder)
 npm run pack

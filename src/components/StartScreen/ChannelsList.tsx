@@ -16,7 +16,7 @@ const ChannelsList = () => {
   const [currentChannel, setCurrentChannel] = useState("");
   const [showInputChannelName, setShowInputChannelName] = useState(false);
   const [newChannel, setNewChannel] = useState("");
-  const { setChannel, setShowStartPage, userInputChannelName, setUserInputChannelName } = useContext(AppContext);
+  const { setChannel, setShowStartPage, setUserInputChannelName } = useContext(AppContext);
 
   const highlightChannel = (item: ItemProps) => {
     setCurrentChannel(item.label);
@@ -29,7 +29,7 @@ const ChannelsList = () => {
 
   const addChannel = (item: string) => {
     setShowInputChannelName(false);
-    setUserInputChannelName(true);
+    setUserInputChannelName(false);
     saveStream(item);
     updateList();
   };
@@ -45,15 +45,18 @@ const ChannelsList = () => {
     setList(list.map((channel) => ({ label: channel, value: channel })));
   };
 
-  useInput((input) => {
-    if (input === "a") {
-      setShowInputChannelName(true);
-      setFocusList(false);
-    }
-    if (input === "r") {
-      removeChannel();
-    }
-  }, { isActive: !showInputChannelName });
+  useInput(
+    (input) => {
+      if (input === "a") {
+        setShowInputChannelName(true);
+        setFocusList(false);
+      }
+      if (input === "r") {
+        removeChannel();
+      }
+    },
+    { isActive: !showInputChannelName },
+  );
 
   useEffect(() => {
     updateList();
