@@ -11,7 +11,7 @@ type Config = {
   moderatorIconColor: string;
 };
 
-type StreamsListConfig = {
+type ChannelsListConfig = {
   list: string[]
 }
 
@@ -32,7 +32,7 @@ const schemaSettings: JSONSchemaType<Config> = {
   additionalProperties: false,
 };
 
-const schemaList: JSONSchemaType<StreamsListConfig> = {
+const schemaList: JSONSchemaType<ChannelsListConfig> = {
   type: "object",
   properties: {
     list: {
@@ -51,7 +51,7 @@ const validateList = ajv.compile(schemaList);
 const homeDir = os.homedir();
 
 const configFilePath = `${homeDir}/.config/twitch-chat-viewer/settings.json`;
-const listOfStreamsFilePath = `${homeDir}/.config/twitch-chat-viewer/list-of-streams.json`;
+const listOfChannelsFilePath = `${homeDir}/.config/twitch-chat-viewer/list-of-streams.json`;
 
 let config: Config = {
   showMods: true,
@@ -59,7 +59,7 @@ let config: Config = {
   moderatorIconColor: "#ffffff",
 };
 
-let channelsList: StreamsListConfig = {
+let channelsList: ChannelsListConfig = {
   list: []
 }
 
@@ -84,9 +84,9 @@ if (fs.existsSync(configFilePath)) {
 }
 
 // list-of-streams.json
-if (fs.existsSync(listOfStreamsFilePath)) {
+if (fs.existsSync(listOfChannelsFilePath)) {
   channelsList = JSON.parse(
-    fs.readFileSync(listOfStreamsFilePath, {
+    fs.readFileSync(listOfChannelsFilePath, {
       encoding: "utf8",
     }),
   );
@@ -95,25 +95,25 @@ if (fs.existsSync(listOfStreamsFilePath)) {
     process.exit();
   }
 } else {
-  fs.writeFileSync(listOfStreamsFilePath, JSON.stringify(channelsList, null, 2));
+  fs.writeFileSync(listOfChannelsFilePath, JSON.stringify(channelsList, null, 2));
 }
 
 const saveChannelToFile = (channel: string) => {
-  const channels: StreamsListConfig = JSON.parse(
-    fs.readFileSync(listOfStreamsFilePath, {
+  const channels: ChannelsListConfig = JSON.parse(
+    fs.readFileSync(listOfChannelsFilePath, {
       encoding: "utf8",
     }),
   );
 
   if (!channels.list.includes(channel)) {
     channels.list.push(channel);
-    fs.writeFileSync(listOfStreamsFilePath, JSON.stringify(channels, null, 2));
+    fs.writeFileSync(listOfChannelsFilePath, JSON.stringify(channels, null, 2));
   }
 }
 
 const removeChannelFromFile = (channel: string) => {
-  const channels: StreamsListConfig = JSON.parse(
-    fs.readFileSync(listOfStreamsFilePath, {
+  const channels: ChannelsListConfig = JSON.parse(
+    fs.readFileSync(listOfChannelsFilePath, {
       encoding: "utf8",
     }),
   );
@@ -121,16 +121,16 @@ const removeChannelFromFile = (channel: string) => {
   if (channels.list.includes(channel)) {
     const newList = channels.list.filter((c) => c !== channel)
     channels["list"] = newList;
-    fs.writeFileSync(listOfStreamsFilePath, JSON.stringify(channels, null, 2));
+    fs.writeFileSync(listOfChannelsFilePath, JSON.stringify(channels, null, 2));
   }
 }
 
-const getChannelsFromFile = (): StreamsListConfig => {
+const getChannelsFromFile = (): ChannelsListConfig => {
   return JSON.parse(
-    fs.readFileSync(listOfStreamsFilePath, {
+    fs.readFileSync(listOfChannelsFilePath, {
       encoding: "utf8",
     }),
   );
 }
 
-export { config, channelsList, Config, StreamsListConfig, saveChannelToFile, removeChannelFromFile, getChannelsFromFile };
+export { config, channelsList, Config, ChannelsListConfig, saveChannelToFile, removeChannelFromFile, getChannelsFromFile };
