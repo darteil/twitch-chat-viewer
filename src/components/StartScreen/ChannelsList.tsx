@@ -3,7 +3,7 @@ import { Text, Box, useInput } from "ink";
 import SelectInput, { ItemProps } from "ink-select-input";
 import TextInput from "ink-text-input";
 import { AppContext } from "../App";
-import { saveStream, removeStream, getStreams } from "../../config";
+import { saveChannelToFile, removeChannelFromFile, getChannelsFromFile } from "../../config";
 
 interface Channel {
   label: string;
@@ -16,7 +16,7 @@ const ChannelsList = () => {
   const [currentChannel, setCurrentChannel] = useState("");
   const [showInputChannelName, setShowInputChannelName] = useState(false);
   const [newChannel, setNewChannel] = useState("");
-  const { setChannel, setShowStartPage, setUserInputChannelName } = useContext(AppContext);
+  const { setChannel, setShowStartPage, setEnterChannelNameStatus } = useContext(AppContext);
 
   const highlightChannel = (item: ItemProps) => {
     setCurrentChannel(item.label);
@@ -29,19 +29,19 @@ const ChannelsList = () => {
 
   const addChannel = (item: string) => {
     setShowInputChannelName(false);
-    setUserInputChannelName(false);
-    saveStream(item);
+    setEnterChannelNameStatus(false);
+    saveChannelToFile(item);
     updateList();
   };
 
   const removeChannel = () => {
     if (currentChannel === "") return;
-    removeStream(currentChannel);
+    removeChannelFromFile(currentChannel);
     updateList();
   };
 
   const updateList = () => {
-    const { list } = getStreams();
+    const { list } = getChannelsFromFile();
     setList(list.map((channel) => ({ label: channel, value: channel })));
   };
 

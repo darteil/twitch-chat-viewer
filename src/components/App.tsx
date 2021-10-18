@@ -7,7 +7,7 @@ import Chat from "./Chat";
 interface AppContextInterface {
   setShowStartPage: React.Dispatch<boolean>;
   setChannel: React.Dispatch<string>;
-  setUserInputChannelName: React.Dispatch<boolean>;
+  setEnterChannelNameStatus: React.Dispatch<boolean>;
   client: Client;
 }
 
@@ -26,7 +26,7 @@ const App: FunctionComponent = () => {
 
   const [showStartPage, setShowStartPage] = useState(true);
   const [channel, setChannel] = useState("");
-  const [userInputChannelName, setUserInputChannelName] = useState(false);
+  const [enterChannelNameStatus, setEnterChannelNameStatus] = useState(false);
 
   useInput(
     (input) => {
@@ -34,7 +34,7 @@ const App: FunctionComponent = () => {
         process.exit();
       }
     },
-    { isActive: !userInputChannelName },
+    { isActive: !enterChannelNameStatus},
   );
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const App: FunctionComponent = () => {
   }, [channel]);
 
   return (
-    <AppContext.Provider value={{ setShowStartPage, setChannel, client, setUserInputChannelName }}>
+    <AppContext.Provider value={{ setShowStartPage, setChannel, client, setEnterChannelNameStatus }}>
       {showStartPage ? <StartScreen /> : <Chat />}
     </AppContext.Provider>
   );

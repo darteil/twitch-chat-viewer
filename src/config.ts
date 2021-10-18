@@ -59,7 +59,7 @@ let config: Config = {
   moderatorIconColor: "#ffffff",
 };
 
-let streamsList: StreamsListConfig = {
+let channelsList: StreamsListConfig = {
   list: []
 }
 
@@ -85,20 +85,20 @@ if (fs.existsSync(configFilePath)) {
 
 // list-of-streams.json
 if (fs.existsSync(listOfStreamsFilePath)) {
-  streamsList = JSON.parse(
+  channelsList = JSON.parse(
     fs.readFileSync(listOfStreamsFilePath, {
       encoding: "utf8",
     }),
   );
-  if (!validateList(streamsList)) {
+  if (!validateList(channelsList)) {
     console.log(chalk.red("Invalid list of streams config..."));
     process.exit();
   }
 } else {
-  fs.writeFileSync(listOfStreamsFilePath, JSON.stringify(streamsList, null, 2));
+  fs.writeFileSync(listOfStreamsFilePath, JSON.stringify(channelsList, null, 2));
 }
 
-const saveStream = (channel: string) => {
+const saveChannelToFile = (channel: string) => {
   const channels: StreamsListConfig = JSON.parse(
     fs.readFileSync(listOfStreamsFilePath, {
       encoding: "utf8",
@@ -111,7 +111,7 @@ const saveStream = (channel: string) => {
   }
 }
 
-const removeStream = (channel: string) => {
+const removeChannelFromFile = (channel: string) => {
   const channels: StreamsListConfig = JSON.parse(
     fs.readFileSync(listOfStreamsFilePath, {
       encoding: "utf8",
@@ -125,7 +125,7 @@ const removeStream = (channel: string) => {
   }
 }
 
-const getStreams = (): StreamsListConfig => {
+const getChannelsFromFile = (): StreamsListConfig => {
   return JSON.parse(
     fs.readFileSync(listOfStreamsFilePath, {
       encoding: "utf8",
@@ -133,4 +133,4 @@ const getStreams = (): StreamsListConfig => {
   );
 }
 
-export { config, streamsList, Config, StreamsListConfig, saveStream, removeStream, getStreams };
+export { config, channelsList, Config, StreamsListConfig, saveChannelToFile, removeChannelFromFile, getChannelsFromFile };
