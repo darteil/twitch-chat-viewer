@@ -12,14 +12,14 @@ type Config = {
 };
 
 type ChannelsListConfig = {
-  list: string[]
-}
+  list: string[];
+};
 
 const schemaSettings: JSONSchemaType<Config> = {
   type: "object",
   properties: {
     showMods: {
-      type: "boolean"
+      type: "boolean",
     },
     moderatorIcon: {
       type: "string",
@@ -38,12 +38,12 @@ const schemaList: JSONSchemaType<ChannelsListConfig> = {
     list: {
       type: "array",
       items: {
-        type: "string"
-      }
-    }
+        type: "string",
+      },
+    },
   },
-  required: ["list"]
-}
+  required: ["list"],
+};
 
 const validateSettings = ajv.compile(schemaSettings);
 const validateList = ajv.compile(schemaList);
@@ -60,8 +60,8 @@ let config: Config = {
 };
 
 let channelsList: ChannelsListConfig = {
-  list: []
-}
+  list: [],
+};
 
 // settings.json
 if (fs.existsSync(configFilePath)) {
@@ -109,7 +109,7 @@ const saveChannelToFile = (channel: string) => {
     channels.list.push(channel);
     fs.writeFileSync(listOfChannelsFilePath, JSON.stringify(channels, null, 2));
   }
-}
+};
 
 const removeChannelFromFile = (channel: string) => {
   const channels: ChannelsListConfig = JSON.parse(
@@ -119,11 +119,11 @@ const removeChannelFromFile = (channel: string) => {
   );
 
   if (channels.list.includes(channel)) {
-    const newList = channels.list.filter((c) => c !== channel)
+    const newList = channels.list.filter((c) => c !== channel);
     channels["list"] = newList;
     fs.writeFileSync(listOfChannelsFilePath, JSON.stringify(channels, null, 2));
   }
-}
+};
 
 const getChannelsFromFile = (): ChannelsListConfig => {
   return JSON.parse(
@@ -131,6 +131,14 @@ const getChannelsFromFile = (): ChannelsListConfig => {
       encoding: "utf8",
     }),
   );
-}
+};
 
-export { config, channelsList, Config, ChannelsListConfig, saveChannelToFile, removeChannelFromFile, getChannelsFromFile };
+export {
+  config,
+  channelsList,
+  Config,
+  ChannelsListConfig,
+  saveChannelToFile,
+  removeChannelFromFile,
+  getChannelsFromFile,
+};

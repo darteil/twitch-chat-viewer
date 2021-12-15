@@ -9,11 +9,7 @@ interface Props {
 }
 
 const CompactMessage: React.FC<Props> = ({ message }) => (
-  <Box
-    width={process.stdout.columns}
-    paddingBottom={1}
-    flexDirection="column"
-  >
+  <Box width={process.stdout.columns} paddingBottom={1} flexDirection="column">
     <Box flexDirection="row">
       <Box>
         <Text>{`${chalk.black.bgYellow(message.time)} `}</Text>
@@ -21,7 +17,7 @@ const CompactMessage: React.FC<Props> = ({ message }) => (
       <Box justifyContent="flex-end">
         <Text wrap="truncate">
           {`${message.mod ? chalk.hex(config.moderatorIconColor || "#ffffff")(`${config.moderatorIcon}`) : ""} ${
-            message.nameColor? chalk[message.nameColor](message.name) : message.name
+            message.nameColor ? chalk[message.nameColor](message.name) : message.name
           } `}
         </Text>
       </Box>

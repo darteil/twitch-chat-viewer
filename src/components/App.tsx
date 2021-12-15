@@ -34,7 +34,7 @@ const App: FunctionComponent = () => {
         process.exit();
       }
     },
-    { isActive: !enterChannelNameStatus},
+    { isActive: !enterChannelNameStatus },
   );
 
   useEffect(() => {

@@ -92,7 +92,13 @@ export const MessagesList: React.FC<Props> = ({ client, config }) => {
   return (
     <>
       <Static items={state.messages}>
-        {(message) => (compact ? <CompactMessage key={message.id} message={message} /> : <DefaultMessage key={message.id} message={message} />)}
+        {(message) =>
+          compact ? (
+            <CompactMessage key={message.id} message={message} />
+          ) : (
+            <DefaultMessage key={message.id} message={message} />
+          )
+        }
       </Static>
       <CountOfMessages count={countOfMessages} />
     </>

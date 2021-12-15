@@ -8,11 +8,11 @@ const Chat: FC = () => {
   const { client } = useContext(AppContext);
 
   return (
-  <>
-    <MessagesList client={client} config={config} />
-    {config.showMods && <RoomState client={client} />}
-  </>
-  )
+    <>
+      <MessagesList client={client} config={config} />
+      {config.showMods && <RoomState client={client} />}
+    </>
+  );
 };
 
 export default Chat;
