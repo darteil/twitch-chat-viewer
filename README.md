@@ -10,9 +10,9 @@ Start screen:
 
 Chat:
 
-| Default mode              |  Compact mode             |
-|:-------------------------:|:-------------------------:|
-|![](media/screen1.png)     |![](media/screen2.png)     |
+|      Default mode      |      Compact mode      |
+| :--------------------: | :--------------------: |
+| ![](media/screen1.png) | ![](media/screen2.png) |
 
 ### Usage
 
@@ -31,12 +31,13 @@ npm run pack
 ```
 
 ### Configuration file
+
 The user configuration is named as `.settings.json` and placed inside the folder `$HOME/.config/twitch-chat-viewer`
 
 Default config:
-``` jsonc
+
+```jsonc
 {
-  "showMods": true,
   "moderatorIcon": "◉",
   "moderatorIconColor": "#ffffff"
 }
