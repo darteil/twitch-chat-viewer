@@ -11,7 +11,7 @@ const RoomState: FunctionComponent<Props> = ({ client }) => {
   const { mods } = useContext(AppContext);
 
   return (
-    <Box borderStyle="single" flexDirection="column">
+    <Box flexDirection="column">
       <Text dimColor color={`${mods.followersOnly ? "green" : "white"}`}>
         Followers-only: {mods.followersOnly ? "on" : "off"}
       </Text>
