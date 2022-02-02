@@ -70,21 +70,21 @@ const ChannelsList = () => {
   return (
     <>
       <Box flexDirection="column" margin={1}>
-        {list.length === 0 ? (
-          <Text>Channels list is empty</Text>
-        ) : (
+        {list.length === 0 && <Text>Channels list is empty</Text>}
+        {list.length > 0 && (
           <SelectInput isFocused={focusList} items={list} onHighlight={highlightChannel} onSelect={openChannel} />
         )}
       </Box>
       <Box>
-        {showInputChannelName ? (
+        {showInputChannelName && (
           <>
             <Box marginRight={1}>
               <Text>Enter channel name:</Text>
             </Box>
             <TextInput value={newChannel} onSubmit={addChannel} onChange={setNewChannel} />
           </>
-        ) : (
+        )}
+        {!showInputChannelName && (
           <Box flexDirection="column">
             <Text color="gray" dimColor>
               Enter - select channel

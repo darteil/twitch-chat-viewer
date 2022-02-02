@@ -24,7 +24,6 @@ interface State {
 
 interface Props {
   client: Client;
-  config: Config;
 }
 
 const colors: typeof Color[] = [
@@ -43,7 +42,24 @@ const colors: typeof Color[] = [
   "cyanBright",
 ];
 
-export const MessagesList: React.FC<Props> = ({ client, config }) => {
+const createEmptyLines = (): Message[] => {
+  const emptyLines: Message[] = [];
+
+  for (let i = 0; i < 50; i++) {
+    emptyLines.push({
+      id: `${i}`,
+      time: "",
+      name: "",
+      nameColor: undefined,
+      mod: false,
+      mess: "",
+    });
+  }
+
+  return emptyLines;
+};
+
+export const MessagesList: React.FC<Props> = ({ client }) => {
   const [state, setState] = useState<State>({
     userColors: new Map(),
     messages: [],
@@ -52,10 +68,18 @@ export const MessagesList: React.FC<Props> = ({ client, config }) => {
   const [countOfMessages, setCountOfMessages] = useState(0);
 
   useEffect(() => {
-    console.clear();
-
     process.stdout.on("resize", () => {
       process.stdout.columns < 90 ? setCompact(true) : setCompact(false);
+    });
+
+    const emptyLines = createEmptyLines();
+
+    setState((prevState) => {
+      return {
+        ...prevState,
+        userColors: new Map(prevState.userColors),
+        messages: [...prevState.messages, ...emptyLines],
+      };
     });
 
     client.on("message", (channel, userstate, message) => {
@@ -72,7 +96,7 @@ export const MessagesList: React.FC<Props> = ({ client, config }) => {
 
         return {
           ...prevState,
-          users: newUsers,
+          userColors: newUsers,
           messages: [
             ...prevState.messages,
             {

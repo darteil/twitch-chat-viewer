@@ -6,7 +6,6 @@ import Ajv, { JSONSchemaType } from "ajv";
 const ajv = new Ajv();
 
 type Config = {
-  showMods: boolean;
   moderatorIcon: string;
   moderatorIconColor: string;
 };
@@ -18,9 +17,6 @@ type ChannelsListConfig = {
 const schemaSettings: JSONSchemaType<Config> = {
   type: "object",
   properties: {
-    showMods: {
-      type: "boolean",
-    },
     moderatorIcon: {
       type: "string",
     },
@@ -54,7 +50,6 @@ const configFilePath = `${homeDir}/.config/twitch-chat-viewer/settings.json`;
 const listOfChannelsFilePath = `${homeDir}/.config/twitch-chat-viewer/list-of-streams.json`;
 
 let config: Config = {
-  showMods: true,
   moderatorIcon: "◉",
   moderatorIconColor: "#ffffff",
 };
