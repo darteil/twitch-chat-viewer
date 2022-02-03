@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, createContext } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import { Client } from "tmi.js";
 import { useInput } from "ink";
 import StartScreen from "./StartScreen";
@@ -21,7 +21,7 @@ interface AppContextInterface {
 
 const AppContext = createContext<AppContextInterface>({} as AppContextInterface);
 
-const App: FC = () => {
+const App: React.FC = () => {
   const [client] = useState(
     new Client({
       options: {
@@ -73,7 +73,7 @@ const App: FC = () => {
       }
     });
 
-    client.on("roomstate", (channel, state) => {
+    client.on("roomstate", (_, state) => {
       const followersOnlyStatus = Number(state["followers-only"]);
       const subsOnlyStatus = Number(state["subs-only"]);
       const emoteOnlyStatus = Number(state["emote-only"]);
@@ -107,25 +107,25 @@ const App: FC = () => {
   }, [channel]);
 
   useEffect(() => {
-    client.on("followersonly", (channel, enabled) => {
+    client.on("followersonly", (_, enabled) => {
       setRoomMods({
         ...roomMods,
         followersOnly: enabled,
       });
     });
-    client.on("subscribers", (channel, enabled) => {
+    client.on("subscribers", (_, enabled) => {
       setRoomMods({
         ...roomMods,
         subsOnly: enabled,
       });
     });
-    client.on("emoteonly", (channel, enabled) => {
+    client.on("emoteonly", (_, enabled) => {
       setRoomMods({
         ...roomMods,
         emoteOnly: enabled,
       });
     });
-    client.on("slowmode", (channel, enabled) => {
+    client.on("slowmode", (_, enabled) => {
       setRoomMods({
         ...roomMods,
         slow: enabled,

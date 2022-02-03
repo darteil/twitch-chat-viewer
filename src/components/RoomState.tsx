@@ -1,13 +1,8 @@
-import React, { FunctionComponent, useState, useEffect, useContext } from "react";
-import { Client } from "tmi.js";
+import React, { useContext } from "react";
 import { Box, Text } from "ink";
 import { AppContext } from "./App";
 
-interface Props {
-  client: Client;
-}
-
-const RoomState: FunctionComponent<Props> = ({ client }) => {
+const RoomState: React.FC = () => {
   const { mods } = useContext(AppContext);
 
   return (

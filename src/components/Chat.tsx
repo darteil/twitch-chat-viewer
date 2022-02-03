@@ -1,10 +1,10 @@
-import React, { FC, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import MessagesList from "./MessagesList";
 import RoomState from "./RoomState";
 import { AppContext } from "./App";
 import { useInput } from "ink";
 
-const Chat: FC = () => {
+const Chat: React.FC = () => {
   const { client } = useContext(AppContext);
   const [showMods, setShowMods] = useState(false);
 
@@ -15,7 +15,7 @@ const Chat: FC = () => {
   return (
     <>
       <MessagesList client={client} />
-      {showMods && <RoomState client={client} />}
+      {showMods && <RoomState />}
     </>
   );
 };

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Static } from "ink";
 import dayjs from "dayjs";
 import { Client } from "tmi.js";
-import { Config } from "../../config";
 import CountOfMessages from "../CountOfMessages";
 import CompactMessage from "./CompactMessage";
 import DefaultMessage from "./DefaultMessage";
@@ -82,7 +81,7 @@ export const MessagesList: React.FC<Props> = ({ client }) => {
       };
     });
 
-    client.on("message", (channel, userstate, message) => {
+    client.on("message", (_, userstate, message) => {
       const time = dayjs().format("HH:mm:ss");
 
       setCountOfMessages((prevState) => prevState + 1);
