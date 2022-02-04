@@ -30,7 +30,9 @@ const ChannelsList = () => {
   const addChannel = (item: string) => {
     setShowInputChannelName(false);
     setEnterChannelNameStatus(false);
-    saveChannelToFile(item);
+    if (item) {
+      saveChannelToFile(item);
+    }
     updateList();
   };
 
