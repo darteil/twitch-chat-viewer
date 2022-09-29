@@ -29,6 +29,6 @@
     "ink-select-input": "^4.2.0",
     "ink-text-input": "^4.0.1",
     "react": "^17.0.2",
-    "tmi.js": "^1.7.1"
+    "tmi.js": "^1.8.5"
   }
 }
