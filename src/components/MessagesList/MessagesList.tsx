@@ -87,7 +87,10 @@ export const MessagesList: React.FC<Props> = ({ client }) => {
       setCountOfMessages((prevState) => prevState + 1);
 
       setState((prevState) => {
-        const userName = userstate["display-name"] || "noname";
+        let userName = userstate["display-name"] || "noname";
+        if (userName.length > 15) {
+          userName = userName.slice(0, 14) + "...";
+        }
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
         const newUsers = prevState.userColors.get(userName)
           ? new Map(prevState.userColors)

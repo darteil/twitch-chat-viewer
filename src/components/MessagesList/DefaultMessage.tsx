@@ -13,14 +13,14 @@ const DefaultMessage: React.FC<Props> = ({ message }) => (
     <Box width="9">
       <Text>{`${chalk.black.bgYellow(message.time)} `}</Text>
     </Box>
-    <Box justifyContent="flex-end" width="20">
+    <Box justifyContent="flex-end" width="25">
       <Text wrap="truncate">
         {`${message.mod ? chalk.hex(config.moderatorIconColor || "#ffffff")(`${config.moderatorIcon}`) : ""} ${
           message.nameColor ? chalk[message.nameColor](message.name) : message.name
         } `}
       </Text>
     </Box>
-    <Box width="70">
+    <Box width="65">
       <Text>{message.mess}</Text>
     </Box>
   </Box>
