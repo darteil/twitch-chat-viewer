@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Box, Text } from "ink";
-import { AppContext } from "./App";
+import { AppContext } from "./App.js";
 
-const RoomState: React.FC = () => {
+const RoomState = () => {
   const { mods } = useContext(AppContext);
 
   return (

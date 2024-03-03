@@ -1,34 +1,38 @@
 {
   "name": "twitch-chat",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Twitch chat viewer in terminal",
-  "main": "index.tsx",
+  "exports": "./src/index.tsx",
   "bin": "./dist/index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=16"
+  },
   "scripts": {
-    "dev": "./node_modules/ts-node/dist/bin.js src/index.tsx -c",
+    "dev": "node ./node_modules/ts-node/dist/esm.js src/index.tsx -c",
     "build": "tsc",
     "pack": "./node_modules/pkg/lib-es5/bin.js --out-path ./release .",
-    "lint": "./node_modules/.bin/prettier --config ./.prettierrc.js ./src/**/*.tsx ./src/**/*.ts --write"
+    "lint": "node ./node_modules/.bin/prettier --config ./.prettierrc.js ./src/**/*.tsx ./src/**/*.ts --write"
   },
   "author": "Romanov Yuri",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^14.14.22",
-    "@types/react": "^17.0.0",
-    "pkg": "^5.5.2",
-    "prettier": "^2.2.1",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.1.3"
+    "@types/node": "^20.11.20",
+    "@types/react": "^18.2.58",
+    "pkg": "^5.8.1",
+    "prettier": "^3.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@types/tmi.js": "^1.7.1",
-    "ajv": "^7.0.4",
-    "chalk": "^4.1.0",
-    "dayjs": "^1.10.4",
-    "ink": "^3.0.9",
-    "ink-select-input": "^4.2.0",
-    "ink-text-input": "^4.0.1",
-    "react": "^17.0.2",
+    "@types/tmi.js": "^1.8.6",
+    "ajv": "^8.12.0",
+    "chalk": "^5.3.0",
+    "dayjs": "^1.11.10",
+    "ink": "^4.4.1",
+    "ink-select-input": "^5.0.0",
+    "ink-text-input": "^5.0.1",
+    "react": "^18.2.0",
     "tmi.js": "^1.8.5"
   }
 }

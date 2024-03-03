@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
-import MessagesList from "./MessagesList";
-import RoomState from "./RoomState";
-import { AppContext } from "./App";
+import MessagesList from "./MessagesList/index.js";
+import RoomState from "./RoomState.js";
+import { AppContext } from "./App.js";
 import { useInput } from "ink";
 
-const Chat: React.FC = () => {
+const Chat = () => {
   const { client } = useContext(AppContext);
   const [showMods, setShowMods] = useState(false);
 

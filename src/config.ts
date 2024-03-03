@@ -1,8 +1,9 @@
 import os from "os";
 import fs from "fs";
 import chalk from "chalk";
-import Ajv, { JSONSchemaType } from "ajv";
+import _Ajv, { JSONSchemaType } from "ajv";
 
+const Ajv = _Ajv as unknown as typeof _Ajv.default;
 const ajv = new Ajv();
 
 type Config = {

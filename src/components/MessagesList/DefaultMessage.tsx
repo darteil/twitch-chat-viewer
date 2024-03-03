@@ -1,14 +1,14 @@
 import React from "react";
 import chalk from "chalk";
 import { Box, Text } from "ink";
-import { config } from "../../config";
-import { Message } from "./MessagesList";
+import { config } from "../../config.js";
+import { Message } from "./MessagesList.js";
 
 interface Props {
   message: Message;
 }
 
-const DefaultMessage: React.FC<Props> = ({ message }) => (
+const DefaultMessage = ({ message }: Props) => (
   <Box flexDirection="row">
     <Box width="9">
       <Text>{`${chalk.black.bgYellow(message.time)} `}</Text>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, createContext } from "react";
 import { Client } from "tmi.js";
 import { useInput } from "ink";
-import StartScreen from "./StartScreen";
-import Chat from "./Chat";
+import StartScreen from "./StartScreen/index.js";
+import Chat from "./Chat.js";
 
 type RoomMods = {
   followersOnly: boolean;
@@ -21,7 +21,7 @@ interface AppContextInterface {
 
 const AppContext = createContext<AppContextInterface>({} as AppContextInterface);
 
-const App: React.FC = () => {
+const App = () => {
   const [client] = useState(
     new Client({
       options: {

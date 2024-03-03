@@ -1,12 +1,12 @@
 import React from "react";
 import { Text } from "ink";
-import ChannelsList from "./ChannelsList";
+import ChannelsList from "./ChannelsList.js";
 
 interface Props {
   isConnect: boolean;
 }
 
-const StartScreen: React.FC<Props> = ({ isConnect }) => {
+const StartScreen = ({ isConnect }: Props) => {
   return (
     <>
       <Text color="green">Welcome to twitch chat viewer!</Text>

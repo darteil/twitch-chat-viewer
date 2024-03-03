@@ -5,7 +5,7 @@ interface Props {
   count: number;
 }
 
-const CountOfMessages: React.FC<Props> = ({ count }) => (
+const CountOfMessages = ({ count }: Props) => (
   <Text dimColor color="white">
     Messages: {count}
   </Text>

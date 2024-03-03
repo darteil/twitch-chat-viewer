@@ -1,14 +1,14 @@
 import React from "react";
 import chalk from "chalk";
 import { Box, Text } from "ink";
-import { config } from "../../config";
-import { Message } from "./MessagesList";
+import { config } from "../../config.js";
+import { Message } from "./MessagesList.js";
 
 interface Props {
   message: Message;
 }
 
-const CompactMessage: React.FC<Props> = ({ message }) => (
+const CompactMessage = ({ message }: Props) => (
   <Box width={process.stdout.columns} paddingBottom={1} flexDirection="column">
     <Box flexDirection="row">
       <Box>

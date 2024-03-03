@@ -2,22 +2,22 @@ import React, { useState, useEffect } from "react";
 import { Static } from "ink";
 import dayjs from "dayjs";
 import { Client } from "tmi.js";
-import CountOfMessages from "../CountOfMessages";
-import CompactMessage from "./CompactMessage";
-import DefaultMessage from "./DefaultMessage";
-import { Color } from "chalk";
+import CountOfMessages from "../CountOfMessages.js";
+import CompactMessage from "./CompactMessage.js";
+import DefaultMessage from "./DefaultMessage.js";
+import { ColorName } from "chalk";
 
 export interface Message {
   id: string | undefined;
   time: string;
   name: string | undefined;
-  nameColor: typeof Color | undefined;
+  nameColor: ColorName | undefined;
   mod: boolean | undefined;
   mess: string;
 }
 
 interface State {
-  userColors: Map<string, typeof Color>;
+  userColors: Map<string, ColorName>;
   messages: Message[];
 }
 
@@ -25,7 +25,7 @@ interface Props {
   client: Client;
 }
 
-const colors: typeof Color[] = [
+const colors: ColorName[] = [
   "red",
   "green",
   "yellow",

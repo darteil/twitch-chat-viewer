@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { Text, Box, useInput } from "ink";
 import SelectInput, { ItemProps } from "ink-select-input";
 import TextInput from "ink-text-input";
-import { AppContext } from "../App";
-import { saveChannelToFile, removeChannelFromFile, getChannelsFromFile } from "../../config";
+import { AppContext } from "../App.js";
+import { saveChannelToFile, removeChannelFromFile, getChannelsFromFile } from "../../config.js";
 
 interface Channel {
   label: string;
@@ -88,16 +88,16 @@ const ChannelsList = () => {
         )}
         {!showInputChannelName && (
           <Box flexDirection="column">
-            <Text color="gray" dimColor>
+            <Text color="green" dimColor>
               Enter - select channel
             </Text>
-            <Text color="gray" dimColor>
+            <Text color="green" dimColor>
               a - add channel
             </Text>
-            <Text color="gray" dimColor>
+            <Text color="green" dimColor>
               r - remove channel
             </Text>
-            <Text color="gray" dimColor>
+            <Text color="green" dimColor>
               q - exit
             </Text>
           </Box>
